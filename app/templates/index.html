@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hello, {{ user.username }} !</h1>
+    <h2>Recent artist analysis:</h2>
+    {% for post in posts %}
+        <div>
+            <p>
+                <b>{{ post.artist }}:</b> Unique Words: {{ post.body.unique_words }}
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
