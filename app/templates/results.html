@@ -8,9 +8,9 @@
     {% if ego_rating == -1 %}
     <h3>Narcissist Score: 0/100. Completely selfless.</h3>
     {% else %}
-    <h3>Narcissist Score: {{ ego_rating }}/100</h3>
+    <h3>Narcissist Score: {{ ego_rating }}%</h3>
     {% endif %}
-    <h3>Top Fifteen Most Used Words:</h3>
+    <h3>Top Ten Most Used Long Words ( > 4):</h3>
     {% for word in top_fifteen %}
         {{ word[0] }} : {{ word[1] }}<br>
     {% endfor %}
