@@ -52,7 +52,7 @@ def analyze_artist(artist_name):
     # print(result)
     artist = result['message']['body']['artist_list'][0]['artist']
 
-    print(artist['artist_name'])
+    #print(artist['artist_name'])
     artist_id = artist['artist_id']
     artist_name = artist['artist_name']
     albums = musixmatch.artist_albums_get(artist_id, 1, 1, 1, 'desc')['message']['body']['album_list']
@@ -79,7 +79,7 @@ def analyze_artist(artist_name):
     ego_rating = rateEgo(total_lyrics)
 
     unique_word_count = len(total_lyrics.keys())
-    print(unique_word_count)
+    #print(unique_word_count)
     top_fifteen = sorted(filter(total_lyrics).items(), key=lambda t: (-t[1], t[0]))[0:15]
 
     return (artist_name, unique_word_count, genre, top_fifteen, ego_rating, total_lyrics)

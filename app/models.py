@@ -8,7 +8,7 @@ class Artist(db.Model):
     genre = db.Column(db.String(64), index=True, unique=False)
 
     def __repr__(self):
-        return '<Artist {}>'.format(self.name)
+        return '<Artist {}: {}>'.format(self.name, self.unique_word_count)
 
 
 class WordInfo(db.Model):

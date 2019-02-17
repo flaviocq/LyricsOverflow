@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
-    <h1>Hello, {{ user.username }} !</h1>
-    <h2>Recent artist analysis:</h2>
+{% block app_content %}
+    <h1>Lyric Overflow: Reading Between the Lines</h1>
+    <h2>Most Recently Searched Artists:</h2>
     {% for post in posts %}
         <div>
             <p>
-                <b>{{ post.artist }}:</b> Unique Words: {{ post.body.unique_words }}
+                <b>{{ post.name }}:</b> Size of Vocabulary: {{ post.unique_word_count }}
             </p>
         </div>
     {% endfor %}

@@ -1,24 +1,12 @@
 from flask import render_template, flash, redirect, url_for
-from app import app, analyze
+from app import app, analyze, models, db
 from app.forms import SearchForm
-
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'Carlos'}
-    posts = [
-        {
-            'artist': 'John',
-            'body': {'unique_words': '19827'}
-        },
-
-        {
-            'artist': 'Bill',
-            'body': {'unique_words': '56263'}
-        }
-    ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    posts = models.Artist.query.all()[:5]
+    return render_template('index.html', title='Home', posts=posts)
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -26,10 +14,13 @@ def search():
     form = SearchForm()
     if (form.validate_on_submit()):
         try:
-            flash('Search requested for artist {}'.format(form.artist.data))
-
             artist_name, unique_word_count, genre, top_fifteen, ego_rating, total_lyrics = \
                 analyze.analyze_artist(form.artist.data)
+            flash('Search successful!')
+            artist_info = models.Artist(name=artist_name, unique_word_count=unique_word_count,
+                                        narcissism_rating=ego_rating,genre=genre)
+            db.session.add(artist_info)
+            db.session.commit()
             return render_template('results.html', title='Results', artist_name=artist_name,
                             unique_word_count=unique_word_count,
                             genre=genre, top_fifteen=top_fifteen,
