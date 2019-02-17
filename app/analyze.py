@@ -55,7 +55,7 @@ def analyze_artist(artist_name):
     #print(artist['artist_name'])
     artist_id = artist['artist_id']
     artist_name = artist['artist_name']
-    albums = musixmatch.artist_albums_get(artist_id, 1, 1, 1, 'desc')['message']['body']['album_list']
+    albums = musixmatch.artist_albums_get(artist_id, 1, 15, 1, 'desc')['message']['body']['album_list']
     try:
         genre = albums[0]['album']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name_extended']
     except IndexError:
@@ -66,7 +66,7 @@ def analyze_artist(artist_name):
         # print('\t' + album['album']['album_name'])
         # except:
         # pass
-        track_list = musixmatch.album_tracks_get(album_id, 1, 10, '')['message']['body']['track_list']
+        track_list = musixmatch.album_tracks_get(album_id, 1, 25, '')['message']['body']['track_list']
 
         for track in track_list:
             track_id = track['track']['track_id']
