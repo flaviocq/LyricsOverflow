@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db
 
 class Artist(db.Model):
@@ -7,6 +8,7 @@ class Artist(db.Model):
     narcissism_rating = db.Column(db.Integer())
     genre = db.Column(db.String(64), index=True, unique=False)
     img_url = db.Column(db.String())
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 
     def __repr__(self):

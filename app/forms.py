@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 
 class SearchForm(FlaskForm):
-    artist = StringField('Artist Name', validators=[DataRequired()])
+    artist = StringField('Enter an artist name here', validators=[DataRequired()])
     submit = SubmitField('Search and Analyze')
