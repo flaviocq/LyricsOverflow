@@ -37,8 +37,10 @@ def rateEgo(total_lyrics):
 
     if not me_count is None:
         numerator += me_count
-
-    return int(100 * numerator/sum(total_lyrics.values()))
+    if numerator != 0:
+        return int(100 * numerator/sum(total_lyrics.values()))
+    else:
+        return -1
 
 
 def analyze_artist(artist_name):

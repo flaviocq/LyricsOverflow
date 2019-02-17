@@ -25,14 +25,18 @@ def index():
 def search():
     form = SearchForm()
     if (form.validate_on_submit()):
-        flash('Search requested for artist {}'.format(form.artist.data))
-        artist_name, unique_word_count, genre, top_fifteen, ego_rating, total_lyrics = \
-            analyze.analyze_artist(form.artist.data)
-        return render_template('results.html', title='Results', artist_name=artist_name,
-                           unique_word_count=unique_word_count,
-                           genre=genre, top_fifteen=top_fifteen,
-                           ego_rating=ego_rating)
-    return render_template('search.html', title='Search', form=form)
+        try:
+            flash('Search requested for artist {}'.format(form.artist.data))
+
+            artist_name, unique_word_count, genre, top_fifteen, ego_rating, total_lyrics = \
+                analyze.analyze_artist(form.artist.data)
+            return render_template('results.html', title='Results', artist_name=artist_name,
+                            unique_word_count=unique_word_count,
+                            genre=genre, top_fifteen=top_fifteen,
+                            ego_rating=ego_rating, error=False)
+        except IndexError:
+            return render_template('search.html', title='Search', form=form, error=True)
+    return render_template('search.html', title='Search', form=form, error=False)
 
 
 @app.route('/results', methods=['GET', 'POST'])
