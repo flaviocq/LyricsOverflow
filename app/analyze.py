@@ -56,9 +56,10 @@ def analyze_artist(artist_name):
     artist_id = artist['artist_id']
     artist_name = artist['artist_name']
     albums = musixmatch.artist_albums_get(artist_id, 1, 1, 1, 'desc')['message']['body']['album_list']
-
-    genre = albums[0]['album']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name_extended']
-
+    try:
+        genre = albums[0]['album']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name_extended']
+    except IndexError:
+        genre = 'N/A'
     for album in albums:
         album_id = album['album']['album_id']
         # try:

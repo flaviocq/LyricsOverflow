@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for
-from app import app, analyze, models, db
+from app import app, analyze, models, db, getImage
 from app.forms import SearchForm
+
 
 @app.route('/')
 @app.route('/index')
@@ -17,14 +18,17 @@ def search():
             artist_name, unique_word_count, genre, top_fifteen, ego_rating, total_lyrics = \
                 analyze.analyze_artist(form.artist.data)
             flash('Search successful!')
+            img = getImage.get_lastFM_info(artist_name)
             artist_info = models.Artist(name=artist_name, unique_word_count=unique_word_count,
-                                        narcissism_rating=ego_rating,genre=genre)
-            db.session.add(artist_info)
-            db.session.commit()
+                                        narcissism_rating=ego_rating, genre=genre, img_url=img)
+            test_artist_info = models.Artist.query.filter_by(name=artist_name).first()
+            if test_artist_info is None:
+                db.session.add(artist_info)
+                db.session.commit()
             return render_template('results.html', title='Results', artist_name=artist_name,
-                            unique_word_count=unique_word_count,
-                            genre=genre, top_fifteen=top_fifteen,
-                            ego_rating=ego_rating, error=False)
+                                   unique_word_count=unique_word_count,
+                                   genre=genre, top_fifteen=top_fifteen,
+                                   ego_rating=ego_rating, error=False, img=img)
         except IndexError:
             return render_template('search.html', title='Search', form=form, error=True)
     return render_template('search.html', title='Search', form=form, error=False)

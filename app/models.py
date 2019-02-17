@@ -6,6 +6,8 @@ class Artist(db.Model):
     unique_word_count = db.Column(db.Integer())
     narcissism_rating = db.Column(db.Integer())
     genre = db.Column(db.String(64), index=True, unique=False)
+    img_url = db.Column(db.String())
+
 
     def __repr__(self):
         return '<Artist {}: {}>'.format(self.name, self.unique_word_count)

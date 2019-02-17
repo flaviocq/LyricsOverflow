@@ -5,10 +5,17 @@
     <h1>Lyric Overflow: Reading Between the Lines</h1>
     <h2>Most Recently Searched Artists:</h2>
     {% for post in posts %}
-        <div>
-            <p>
-                <b>{{ post.name }}:</b> Size of Vocabulary: {{ post.unique_word_count }}
-            </p>
-        </div>
+        <table class="table table-hover">
+        <tr>
+            <td width="100px">
+                <img src="{{ post.img_url }}", alt="No image available", height="100", width="100">
+            </td>
+            <td>
+                <b><h4>{{ post.name }}</h4></b><br>
+                Size of Vocabulary - {{ post.unique_word_count }}<br>
+                Genre - {{ post.genre }}
+            </td>
+        </tr>
+    </table>
     {% endfor %}
 {% endblock %}

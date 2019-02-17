@@ -3,6 +3,7 @@
 
 {% block app_content %}
     <h1>We found results for...<br><b>{{ artist_name }}!</b></h1>
+    <img src = {{ img }}, alt="No Image Available">
     <h2><b>{{ genre }}</b></h2>
     {% if ego_rating == -1 %}
     <h3>Narcissist Score: 0/100. Completely selfless.</h3>
