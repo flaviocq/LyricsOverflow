@@ -67,7 +67,8 @@ def rateEgo(total_lyrics):
 def analyze_artist(artist_name):
     total_lyrics = dict()
     long_lyrics = dict()
-    musixmatch = Musixmatch('25673f45b7887c52d089ab463d1b7562')
+    musixmatch = Musixmatch('1d5d5c029c5f15411a43e55e7efe4517')
+    print(musixmatch)
     search_term = artist_name
 
     result = (musixmatch.artist_search(search_term, 1, 5, '', ''))
