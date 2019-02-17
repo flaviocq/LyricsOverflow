@@ -17,19 +17,28 @@ def filter(t_lyrics):
 def tokenize_song(song_lyrics, total_lyrics):
     for token in re.finditer('[a-z0-9]+', song_lyrics.lower()):
         token = token.group(0)
-        if token in total_lyrics:
-            total_lyrics[token] += 1
-        else:
-            total_lyrics[token] = 1
+        if not re.match('(fuck.*)|(bitch)|(ass)|(nigga.*)', token):
+            if token in total_lyrics:
+                total_lyrics[token] += 1
+            else:
+                total_lyrics[token] = 1
     return total_lyrics
 
 
 def rateEgo(total_lyrics):
-    try:
-        numerator = total_lyrics.get('i') + total_lyrics.get('me')
-        return int(numerator/sum(total_lyrics.values()))
-    except(TypeError):
-        return -1
+    numerator = 0
+    i_count = total_lyrics.get('i')
+
+    if not i_count is None:
+        numerator = i_count
+
+
+    me_count = total_lyrics.get('i')
+
+    if not me_count is None:
+        numerator += me_count
+
+    return int(100 * numerator/sum(total_lyrics.values()))
 
 
 def analyze_artist(artist_name):
@@ -41,7 +50,7 @@ def analyze_artist(artist_name):
     # print(result)
     artist = result['message']['body']['artist_list'][0]['artist']
 
-    # print(artist['artist_name'])
+    print(artist['artist_name'])
     artist_id = artist['artist_id']
     artist_name = artist['artist_name']
     albums = musixmatch.artist_albums_get(artist_id, 1, 1, 1, 'desc')['message']['body']['album_list']

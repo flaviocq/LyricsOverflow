@@ -2,5 +2,11 @@
 
 {% block content %}
     <h1>We found results for...<br><b>{{ artist_name }}!</b></h1>
+    <h2>{{ genre }}</h2>
+    <p>Narcissist Score: {{ ego_rating }}/100</p>
+    <p>Top Fifteen Most Used Words:</p>
+    {% for word in top_fifteen %}
+        {{ word[0] }} : {{ word[1] }}<br>
+    {% endfor %}
     <p>Unique words in vocabulary: {{ unique_word_count }}</p>
 {% endblock %}
